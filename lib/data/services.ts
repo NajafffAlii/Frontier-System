@@ -1458,7 +1458,7 @@ export const servicesData: ServiceItem[] = [
     ],
     comparison: {
       typical: [
-        "Big consulting firms charging £20k+ for junior analysts recycling generic internet slides",
+        "Big consulting firms charging $25k+ for junior analysts recycling generic internet slides",
         "Agencies pushing specific software because they receive lucrative referral commissions",
         "Theoretical advisors who haven't built or launched real software in years",
         "Vague advice that leaves your internal team confused about what to do next",

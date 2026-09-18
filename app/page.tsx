@@ -108,11 +108,47 @@ const process = [
   },
 ];
 
+const architectureStages = [
+  {
+    id: "build",
+    icon: Code2,
+    label: "Build",
+    sub: "Software & Web",
+    capability: "Software & Web",
+  },
+  {
+    id: "automate",
+    icon: Bot,
+    label: "Automate",
+    sub: "AI & Workflows",
+    capability: "AI & Workflows",
+  },
+  {
+    id: "integrate",
+    icon: Workflow,
+    label: "Integrate",
+    sub: "Systems & APIs",
+    capability: "Systems & APIs",
+  },
+  {
+    id: "scale",
+    icon: Network,
+    label: "Scale",
+    sub: "Cloud & Infra",
+    capability: "Cloud & Infra",
+  },
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [hoveredStage, setHoveredStage] = useState<string | null>(null);
+  const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const activeStageId = hoveredStage || selectedStage;
+  const activeStage = architectureStages.find((s) => s.id === activeStageId);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -140,10 +176,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-[74px]">
       {/* ==================== NAVIGATION ==================== */}
 
-      <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           {/* BRAND */}
 
@@ -285,14 +321,14 @@ export default function Home() {
                   <span className="text-[#475569]">
                     Need a tailored architecture or advice on where to start?
                   </span>
-                  <a
-                    href="#contact"
+                  <Link
+                    href="/contact"
                     onClick={handleServiceClick}
                     className="inline-flex items-center gap-1 font-bold text-[#0F172A] transition-colors hover:text-[#B45309]"
                   >
-                    Start a Project
+                    Start a Conversation
                     <ArrowRight className="h-3 w-3" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -321,13 +357,13 @@ export default function Home() {
 
           {/* CTA */}
 
-          <a
-            href="#contact"
-            className="hidden items-center gap-2 rounded-lg bg-[#0F172A] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#D97706] md:flex"
+          <Link
+            href="/contact"
+            className="hidden items-center gap-2 rounded-lg bg-[#0F172A] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#D97706] md:flex"
           >
-            Start a Project
+            Start a Conversation
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
 
           {/* MOBILE BUTTON */}
 
@@ -428,14 +464,14 @@ export default function Home() {
               ))}
 
               <div className="py-4">
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   onClick={closeMenu}
                   className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#0F172A] text-sm font-bold text-white transition-colors hover:bg-[#D97706]"
                 >
-                  Start a Project
+                  Start a Conversation
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </Link>
               </div>
             </nav>
           </div>
@@ -448,26 +484,21 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 pb-16 pt-16 sm:px-8 sm:pt-20 lg:px-10 lg:pb-20 lg:pt-24">
           <div className="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
             <div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-[#D97706]" />
+              <p className="text-sm font-extrabold tracking-[0.16em] text-[#0F172A]">
+                FRONTIER SYSTEMS
+              </p>
 
-                <p className="text-sm font-extrabold tracking-[0.16em] text-[#0F172A]">
-                  FRONTIER SYSTEMS
-                </p>
-              </div>
-
-              <p className="mt-6 text-sm font-bold text-[#B45309] sm:text-base">
+              <p className="mt-5 text-sm font-bold text-[#B45309] sm:text-base">
                 Technology. Automation. Built for What&apos;s Next.
               </p>
 
-              <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-[#0F172A] sm:text-5xl lg:text-[58px]">
-                Technology that moves your business forward.
+              <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-[#0F172A] sm:text-5xl lg:text-[60px]">
+                We build what business needs.
               </h1>
 
               <p className="mt-6 max-w-2xl text-base leading-7 text-[#475569] sm:text-lg sm:leading-8">
-                We build websites, software, AI-powered automation, and
-                business systems that help companies operate, improve, and
-                grow.
+                We design and engineer high-performance websites, custom software,
+                and AI automation that help modern businesses operate and scale.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -479,12 +510,12 @@ export default function Home() {
                   <ArrowRight className="h-4 w-4" />
                 </a>
 
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] bg-white px-6 text-sm font-semibold text-[#0F172A] transition-colors hover:border-[#D97706] hover:text-[#B45309]"
                 >
-                  Start a Project
-                </a>
+                  Start a Conversation
+                </Link>
               </div>
             </div>
 
@@ -495,8 +526,8 @@ export default function Home() {
                 {/* Grid pattern background */}
                 <div className="pointer-events-none absolute inset-0 bg-blueprint-pattern" />
 
-                {/* Glow */}
-                <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#D97706]/10 blur-3xl" />
+                {/* Glow - softened density */}
+                <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#D97706]/6 blur-2xl pointer-events-none" />
 
                 {/* Content */}
                 <div className="relative">
@@ -507,101 +538,171 @@ export default function Home() {
                     </span>
 
                     <span className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-[#F59E0B]">
-                      <span className="relative flex h-3 w-3 items-center justify-center">
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#F59E0B]/50 radar-ring" />
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#F59E0B]/35 radar-ring-delay-1" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#F59E0B] shadow-[0_0_8px_#F59E0B] radar-dot" />
+                      <span className="relative flex h-3.5 w-3.5 items-center justify-center">
+                        {/* Pulse / Ping growing ring 1 */}
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] opacity-75 animate-ping" />
+                        {/* Pulse / Ping growing ring 2 (delayed) */}
+                        <span className="absolute inline-flex h-full w-full rounded-full border border-[#F59E0B] opacity-50 animate-ping [animation-delay:400ms]" />
+                        {/* Ambient pulse halo */}
+                        <span className="absolute inline-flex h-2 w-2 rounded-full bg-[#F59E0B]/30 animate-pulse" />
+                        {/* Central beacon dot */}
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#FEF3C7] ring-1.5 ring-[#F59E0B] shadow-[0_0_8px_#F59E0B]" />
                       </span>
                       LIVE
                     </span>
                   </div>
 
-                  {/* Center node with multi-ring radar pulse */}
-                  <div className="mt-8 flex justify-center">
+                  {/* Center node with dynamic capability transformation & growing rings outside main logo */}
+                  <div className="mt-7 flex flex-col items-center justify-center">
                     <div className="relative flex items-center justify-center">
-                      {/* Expanding radar rings */}
-                      <div className="pointer-events-none absolute h-20 w-20 rounded-full border border-[#F59E0B]/40 radar-ring" />
-                      <div className="pointer-events-none absolute h-20 w-20 rounded-full border border-[#D97706]/40 radar-ring-delay-1" />
-                      <div className="pointer-events-none absolute h-20 w-20 rounded-full border border-[#F59E0B]/25 radar-ring-delay-2" />
+                      {/* Growing circular rings outside main logo with pulse/ping animation */}
+                      <div className="pointer-events-none absolute h-16 w-16 rounded-full border border-[#F59E0B]/50 logo-grow-ring shadow-[0_0_10px_rgba(245,158,11,0.2)]" />
+                      <div className="pointer-events-none absolute h-16 w-16 rounded-full border border-[#D97706]/40 logo-grow-ring-delay-1 shadow-[0_0_10px_rgba(217,119,6,0.15)]" />
+                      <div className="pointer-events-none absolute h-16 w-16 rounded-full border border-[#F59E0B]/30 logo-grow-ring-delay-2 shadow-[0_0_10px_rgba(245,158,11,0.1)]" />
 
-                      {/* Ambient radial glow */}
-                      <div className="absolute h-24 w-24 rounded-full bg-[#D97706]/25 blur-xl" />
+                      {/* Growing rounded-rect contour ring pulsing outside logo */}
+                      <div className="pointer-events-none absolute h-16 w-16 rounded-2xl border border-[#F59E0B]/40 logo-grow-ring shadow-[0_0_12px_rgba(245,158,11,0.25)]" />
 
-                      {/* Logo Hub */}
-                      <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-[#FDE68A]/40 bg-gradient-to-br from-[#D97706] to-[#B45309] shadow-[0_0_35px_rgba(217,119,6,0.4)] transition-transform hover:scale-105">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src="/favicon.ico"
-                          alt="Frontier Systems"
-                          className="h-9 w-9 rounded-sm drop-shadow"
-                        />
+                      {/* Ambient radial glow - softened density */}
+                      <div className="absolute h-20 w-20 rounded-full bg-[#D97706]/15 blur-lg pointer-events-none" />
+
+                      {/* Main Logo Hub - changes dynamically when any stage is hovered or clicked */}
+                      <div
+                        className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border transition-all duration-300 ${
+                          activeStage
+                            ? "border-[#FDE68A]/70 bg-gradient-to-br from-[#B45309] to-[#78350F] shadow-[0_0_18px_rgba(245,158,11,0.3)] scale-105"
+                            : "border-[#FDE68A]/35 bg-gradient-to-br from-[#D97706] to-[#B45309] shadow-[0_0_16px_rgba(217,119,6,0.2)] hover:scale-105"
+                        }`}
+                      >
+                        {activeStage ? (
+                          <div
+                            key={activeStage.id}
+                            className="flex items-center justify-center animate-in fade-in zoom-in-75 duration-200"
+                          >
+                            <activeStage.icon className="h-8 w-8 text-[#FEF3C7] drop-shadow-[0_0_6px_rgba(254,243,199,0.7)]" />
+                          </div>
+                        ) : (
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
+                            src="/favicon.ico"
+                            alt="Frontier Systems"
+                            className="h-9 w-9 rounded-sm drop-shadow transition-all duration-300"
+                          />
+                        )}
                       </div>
+                    </div>
+
+                    {/* Active capability subtitle under the logo hub */}
+                    <div className="mt-2.5 h-4 flex items-center justify-center">
+                      {activeStage ? (
+                        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#FDE68A] transition-all duration-200 animate-in fade-in">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#F59E0B]" />
+                          {activeStage.capability}
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-medium tracking-wide text-white/35">
+                          Frontier Systems
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  {/* Connection lines + nodes */}
-                  <div className="mt-8 grid grid-cols-4 gap-3">
-                    {[
-                      {
-                        icon: Code2,
-                        label: "Build",
-                        sub: "Software & Web",
-                      },
-                      {
-                        icon: Bot,
-                        label: "Automate",
-                        sub: "AI & Workflows",
-                        accent: true,
-                      },
-                      {
-                        icon: Workflow,
-                        label: "Integrate",
-                        sub: "Systems & APIs",
-                      },
-                      {
-                        icon: Network,
-                        label: "Scale",
-                        sub: "Cloud & Infra",
-                      },
-                    ].map((node) => {
-                      const NodeIcon = node.icon;
+                  {/* Feeder line connecting hub to stages */}
+                  <div className="relative mx-auto mt-3 h-5 w-px overflow-hidden bg-gradient-to-b from-[#D97706]/70 via-[#F59E0B]/40 to-white/10">
+                    <div className="absolute h-2 w-full bg-[#F59E0B] shadow-[0_0_5px_#F59E0B] hub-light-pulse" />
+                  </div>
 
-                      return (
-                        <div key={node.label} className="flex flex-col items-center">
-                          {/* Vertical connector */}
-                          <div
-                            className={`h-6 w-px ${
-                              node.accent
-                                ? "bg-gradient-to-b from-[#D97706]/40 to-[#D97706]/10"
-                                : "bg-gradient-to-b from-white/15 to-white/5"
-                            }`}
-                          />
+                  {/* Connection track + 4 stages */}
+                  <div className="relative mt-2">
+                    {/* Horizontal connection track between the four stages */}
+                    <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-[44px] -translate-y-1/2">
+                      {/* Background track line */}
+                      <div className="h-[2px] w-full bg-gradient-to-r from-white/15 via-[#F59E0B]/40 to-white/15" />
+                      {/* Ambient track glow - softened */}
+                      <div className="absolute inset-0 h-[2px] bg-[#F59E0B]/12 blur-xs" />
 
-                          {/* Node */}
-                          <div
-                            className={`flex h-10 w-10 items-center justify-center rounded-lg ${
-                              node.accent
-                                ? "bg-[#78350F] text-[#F59E0B]"
-                                : "bg-[#1E293B] text-[#64748B]"
-                            }`}
-                          >
-                            <NodeIcon className="h-4 w-4" />
-                          </div>
-
-                          <p
-                            className={`mt-2.5 text-[11px] font-bold ${
-                              node.accent ? "text-[#F59E0B]" : "text-white/60"
-                            }`}
-                          >
-                            {node.label}
-                          </p>
-
-                          <p className="mt-0.5 text-[9px] text-white/25">
-                            {node.sub}
-                          </p>
+                      {/* Small orange light traveling along the connections between the four stages */}
+                      <div className="absolute top-1/2 -translate-y-1/2 stage-light-pulse pointer-events-none z-20">
+                        <div className="relative flex items-center">
+                          {/* Trailing motion streak */}
+                          <div className="h-[2px] w-7 bg-gradient-to-r from-transparent via-[#F59E0B]/30 to-[#F59E0B]" />
+                          {/* Glowing orange light photon head - softened density */}
+                          <div className="relative -ml-1 h-2 w-2 rounded-full bg-[#FEF3C7] shadow-[0_0_4px_1px_#F59E0B,0_0_8px_1.5px_rgba(217,119,6,0.22)] ring-1 ring-[#F59E0B]/50" />
                         </div>
-                      );
-                    })}
+                      </div>
+
+                      {/* Second staggered traveling orange light */}
+                      <div className="absolute top-1/2 -translate-y-1/2 stage-light-pulse-delayed pointer-events-none z-20">
+                        <div className="relative flex items-center">
+                          {/* Trailing motion streak */}
+                          <div className="h-[2px] w-7 bg-gradient-to-r from-transparent via-[#F59E0B]/30 to-[#F59E0B]" />
+                          {/* Glowing orange light photon head - softened density */}
+                          <div className="relative -ml-1 h-2 w-2 rounded-full bg-[#FEF3C7] shadow-[0_0_4px_1px_#F59E0B,0_0_8px_1.5px_rgba(217,119,6,0.22)] ring-1 ring-[#F59E0B]/50" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 4 Stage Nodes - Interactive on cursor hover & click */}
+                    <div className="relative z-10 grid grid-cols-4 gap-3">
+                      {architectureStages.map((node) => {
+                        const NodeIcon = node.icon;
+                        const isNodeActive = activeStageId === node.id;
+
+                        return (
+                          <div
+                            key={node.id}
+                            className="group flex flex-col items-center cursor-pointer select-none"
+                            onMouseEnter={() => setHoveredStage(node.id)}
+                            onMouseLeave={() => setHoveredStage(null)}
+                            onClick={() =>
+                              setSelectedStage((prev) =>
+                                prev === node.id ? null : node.id
+                              )
+                            }
+                          >
+                            {/* Vertical connector */}
+                            <div
+                              className={`h-6 w-px transition-colors duration-200 ${
+                                isNodeActive
+                                  ? "bg-gradient-to-b from-[#F59E0B]/70 to-[#D97706]/40"
+                                  : "bg-gradient-to-b from-white/15 to-white/5 group-hover:from-[#F59E0B]/40 group-hover:to-white/10"
+                              }`}
+                            />
+
+                            {/* Node Logo Button */}
+                            <button
+                              type="button"
+                              aria-label={`${node.label} - ${node.sub}`}
+                              className={`relative flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-300 ${
+                                isNodeActive
+                                  ? "border-[#F59E0B] bg-[#78350F] text-[#FDE68A] shadow-[0_0_14px_rgba(245,158,11,0.35)] scale-110"
+                                  : "border-white/10 bg-[#1E293B] text-[#94A3B8] shadow-sm group-hover:border-[#F59E0B]/50 group-hover:text-white group-hover:scale-105"
+                              }`}
+                            >
+                              <NodeIcon className="h-4 w-4 transition-transform duration-200" />
+                            </button>
+
+                            <p
+                              className={`mt-2.5 text-[11px] font-bold transition-colors duration-200 ${
+                                isNodeActive
+                                  ? "text-[#F59E0B]"
+                                  : "text-white/70 group-hover:text-white"
+                              }`}
+                            >
+                              {node.label}
+                            </p>
+
+                            <p
+                              className={`mt-0.5 text-[9px] transition-colors duration-200 ${
+                                isNodeActive ? "text-white/60" : "text-white/30"
+                              }`}
+                            >
+                              {node.sub}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {/* Bottom metrics */}
@@ -756,13 +857,13 @@ export default function Home() {
                 and create smarter workflows.
               </p>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-[#F59E0B]"
               >
                 Talk to us about automation
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
 
             {/* WORKFLOW */}
@@ -947,7 +1048,7 @@ export default function Home() {
           <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#B45309]">
-                Start a Project
+                Start a Conversation
               </p>
 
               <h2 className="mt-4 max-w-2xl text-3xl font-extrabold tracking-tight text-[#0F172A] sm:text-5xl">
@@ -960,13 +1061,21 @@ export default function Home() {
               </p>
             </div>
 
-            <a
-              href="mailto:hello@frontiersystems.co"
-              className="inline-flex h-12 w-full sm:w-fit items-center justify-center gap-3 rounded-lg bg-[#0F172A] px-6 text-sm font-bold text-white transition-colors hover:bg-[#D97706]"
-            >
-              hello@frontiersystems.co
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#0F172A] px-6 text-sm font-bold text-white transition-colors hover:bg-[#D97706]"
+              >
+                Start a Conversation
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="mailto:hello@frontiersystems.co"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] bg-white px-6 text-sm font-semibold text-[#0F172A] transition-colors hover:border-[#D97706] hover:text-[#B45309]"
+              >
+                hello@frontiersystems.co
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -999,6 +1108,12 @@ export default function Home() {
               <p className="mt-2 max-w-sm text-sm leading-6 text-white/40">
                 UK-based technology solutions for businesses worldwide.
               </p>
+
+              <div className="mt-4 text-xs leading-5 text-white/45">
+                <p className="font-semibold text-white/70">Frontier Systems</p>
+                <p>22 Gladstone Street, Walsall</p>
+                <p>WS2 8BL, United Kingdom</p>
+              </div>
             </div>
 
             {/* COMPANY */}
@@ -1023,12 +1138,12 @@ export default function Home() {
                   Services
                 </a>
 
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="block text-sm text-white/55 hover:text-[#F59E0B]"
                 >
                   Contact
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -1047,13 +1162,18 @@ export default function Home() {
                   hello@frontiersystems.co
                 </a>
 
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#F59E0B]"
                 >
-                  Start a Project
+                  Start a Conversation
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </Link>
+
+                <p className="pt-2 text-xs leading-relaxed text-white/40">
+                  <span className="block font-semibold text-white/60">Office</span>
+                  22 Gladstone Street, Walsall, WS2 8BL
+                </p>
               </div>
             </div>
           </div>

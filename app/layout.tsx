@@ -34,6 +34,10 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
       suppressHydrationWarning
     >
+      <head>
+        <meta name="color-scheme" content="light only" />
+        <meta name="supported-color-schemes" content="light" />
+      </head>
       <body
         className="min-h-full flex flex-col bg-[#F8FAFC] text-[#0F172A]"
         style={{ colorScheme: "light" }}

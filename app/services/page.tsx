@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-[74px]">
       {/* ==================== NAVIGATION ==================== */}
-      <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <Link href="/" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -42,10 +42,10 @@ export default function ServicesPage() {
             </Link>
 
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] px-4 py-2 text-xs font-bold text-white transition-all hover:bg-[#D97706]"
             >
-              Start a Project
+              Start a Conversation
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -226,7 +226,7 @@ export default function ServicesPage() {
                 </span>
 
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className={`inline-flex items-center gap-2 text-xs font-bold transition-colors ${
                     category.highlight
                       ? "text-[#B45309] hover:text-[#92400E]"
@@ -272,10 +272,10 @@ export default function ServicesPage() {
               </a>
 
               <Link
-                href="/#contact"
+                href="/contact"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/15 px-6 text-sm font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/5"
               >
-                Start a Project
+                Start a Conversation
               </Link>
             </div>
           </div>
@@ -308,6 +308,12 @@ export default function ServicesPage() {
               <p className="mt-2 max-w-sm text-sm leading-6 text-white/30">
                 UK-based technology solutions for businesses worldwide.
               </p>
+
+              <div className="mt-4 text-xs leading-5 text-white/35">
+                <p className="font-semibold text-white/60">Frontier Systems</p>
+                <p>22 Gladstone Street, Walsall</p>
+                <p>WS2 8BL, United Kingdom</p>
+              </div>
             </div>
 
             {/* Company */}
@@ -332,7 +338,7 @@ export default function ServicesPage() {
                 </Link>
 
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="block text-sm text-white/45 transition-colors hover:text-[#F59E0B]"
                 >
                   Contact
@@ -355,12 +361,17 @@ export default function ServicesPage() {
                 </a>
 
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition-colors hover:text-[#F59E0B]"
                 >
-                  Start a Project
+                  Start a Conversation
                   <ArrowRight className="h-4 w-4" />
                 </Link>
+
+                <p className="pt-2 text-xs leading-relaxed text-white/35">
+                  <span className="block font-medium text-white/50">Office</span>
+                  22 Gladstone Street, Walsall, WS2 8BL
+                </p>
               </div>
             </div>
           </div>

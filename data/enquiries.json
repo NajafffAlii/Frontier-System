@@ -1,0 +1,26 @@
+[
+  {
+    "id": "enq_1789761295443_aiey8",
+    "createdAt": "2026-09-18T19:54:55.443Z",
+    "name": "Najaf Ali Awan",
+    "company": "Frontier Labs",
+    "email": "maliknajaf79@gmail.com",
+    "phone": "+923303052527",
+    "service": "Website / Web Development",
+    "budget": "£1,000 – £2,500 (GBP)",
+    "timeline": "1–3 months",
+    "description": "da"
+  },
+  {
+    "id": "enq_1789761164460_3w2iu",
+    "createdAt": "2026-09-18T19:52:44.460Z",
+    "name": "Test User",
+    "company": "Not specified",
+    "email": "test@example.com",
+    "phone": "Not specified",
+    "service": "Custom Software",
+    "budget": "�1,000 - �2,500 (GBP)",
+    "timeline": "1-3 months",
+    "description": "Testing enquiry submission system."
+  }
+]

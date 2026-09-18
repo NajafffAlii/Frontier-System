@@ -42,33 +42,73 @@
   --font-sans: var(--font-jakarta);
 }
 
+/* ==================== GLOBAL STABILITY & COLOR-SCHEME LOCK ==================== */
+*,
+*::before,
+*::after {
+  color-scheme: light !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   color-scheme: light !important;
-  overflow-x: hidden;
+  supported-color-schemes: light;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background) !important;
-  color: var(--foreground) !important;
+  background: #F8FAFC !important;
+  color: #020617 !important;
   font-family: var(--font-jakarta), Arial, Helvetica, sans-serif;
   color-scheme: light !important;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure inputs, buttons, and textareas stay completely stable */
+input,
+textarea,
+select,
+button {
+  color-scheme: light !important;
+}
+
+/* Balanced text selection */
+::selection {
+  background-color: #FDE68A;
+  color: #78350F;
 }
 
 h1, h2, h3, h4, p, a, span {
   overflow-wrap: break-word;
 }
 
+/* Total immunity against browser forced dark-mode inversion */
 @media (prefers-color-scheme: dark) {
   :root,
   html,
-  body {
+  body,
+  *,
+  *::before,
+  *::after {
     color-scheme: light !important;
+    supported-color-schemes: light;
+  }
+
+  body {
     background-color: #F8FAFC !important;
     color: #020617 !important;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    color-scheme: light !important;
   }
 }
 
@@ -83,16 +123,51 @@ h1, h2, h3, h4, p, a, span {
   background-size: 32px 32px;
 }
 
-@keyframes radar-ring {
+/* Growing pulse/ping rings outside main logo */
+@keyframes logo-ring-grow {
   0% {
-    transform: scale(0.85);
-    opacity: 0.9;
+    transform: scale(0.98);
+    opacity: 0.7;
   }
-  50% {
-    opacity: 0.45;
+  40% {
+    opacity: 0.4;
+  }
+  75% {
+    opacity: 0.15;
   }
   100% {
-    transform: scale(2.4);
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.logo-grow-ring {
+  animation: logo-ring-grow 2.6s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+}
+
+.logo-grow-ring-delay-1 {
+  animation: logo-ring-grow 2.6s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+  animation-delay: 0.85s;
+}
+
+.logo-grow-ring-delay-2 {
+  animation: logo-ring-grow 2.6s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+  animation-delay: 1.7s;
+}
+
+@keyframes radar-ring {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.65;
+  }
+  45% {
+    opacity: 0.35;
+  }
+  80% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: scale(1.75);
     opacity: 0;
   }
 }
@@ -109,19 +184,70 @@ h1, h2, h3, h4, p, a, span {
 }
 
 .radar-ring {
-  animation: radar-ring 2.8s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+  animation: radar-ring 2.6s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
 }
 
 .radar-ring-delay-1 {
-  animation: radar-ring 2.8s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
-  animation-delay: 0.9s;
+  animation: radar-ring 2.6s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+  animation-delay: 0.85s;
 }
 
 .radar-ring-delay-2 {
-  animation: radar-ring 2.8s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
-  animation-delay: 1.8s;
+  animation: radar-ring 2.6s cubic-bezier(0.15, 0.85, 0.35, 1) infinite;
+  animation-delay: 1.7s;
 }
 
 .radar-dot {
   animation: radar-dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes travel-stages {
+  0% {
+    left: 0%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  4% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  92% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  98%, 100% {
+    left: 100%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+
+@keyframes hub-travel {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.stage-light-pulse {
+  animation: travel-stages 3.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.stage-light-pulse-delayed {
+  animation: travel-stages 3.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  animation-delay: 1.8s;
+}
+
+.hub-light-pulse {
+  animation: hub-travel 1.8s ease-in-out infinite;
 }

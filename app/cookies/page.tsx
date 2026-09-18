@@ -32,9 +32,9 @@ export default function CookiePolicyPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
-      {/* ==================== STICKY HEADER ==================== */}
-      <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur">
+    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-[74px]">
+      {/* ==================== FIXED HEADER ==================== */}
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <Link href="/" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -65,10 +65,10 @@ export default function CookiePolicyPage() {
             </Link>
 
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] px-4 py-2 text-xs font-bold text-white transition-all hover:bg-[#D97706]"
             >
-              Start a Project
+              Start a Conversation
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -133,11 +133,11 @@ export default function CookiePolicyPage() {
                   Cookie or privacy inquiries?
                 </p>
                 <a
-                  href="mailto:privacy@frontiersystems.co"
+                  href="mailto:hello@frontiersystems.co"
                   className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-bold text-[#0F172A] hover:text-[#B45309]"
                 >
                   <Mail className="h-3.5 w-3.5 text-[#D97706]" />
-                  privacy@frontiersystems.co
+                  hello@frontiersystems.co
                 </a>
               </div>
             </div>
@@ -373,18 +373,12 @@ export default function CookiePolicyPage() {
               </p>
 
               <div className="mt-5 rounded-xl border border-[#E2E8F0] bg-white p-6 shadow-sm">
-                <p className="font-bold text-[#0F172A]">Frontier Systems — Data Privacy</p>
-                <p className="mt-1 text-sm text-[#475569]">
-                  Inquiries:{" "}
-                  <a
-                    href="mailto:privacy@frontiersystems.co"
-                    className="font-semibold text-[#B45309] hover:underline"
-                  >
-                    privacy@frontiersystems.co
-                  </a>
+                <p className="font-bold text-[#0F172A]">Frontier Systems — Contact & Enquiries</p>
+                <p className="mt-1 text-xs text-[#64748B]">
+                  22 Gladstone Street, Walsall, WS2 8BL, United Kingdom
                 </p>
-                <p className="mt-1 text-sm text-[#475569]">
-                  General:{" "}
+                <p className="mt-2 text-sm text-[#475569]">
+                  Email:{" "}
                   <a
                     href="mailto:hello@frontiersystems.co"
                     className="font-semibold text-[#B45309] hover:underline"
@@ -402,17 +396,23 @@ export default function CookiePolicyPage() {
       <footer className="border-t border-[#E2E8F0] bg-[#0F172A] text-white">
         <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-10">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <Link href="/" className="flex items-center gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/favicon.ico"
-                alt="Frontier Systems"
-                className="h-8 w-8 rounded-sm"
-              />
-              <span className="text-sm font-extrabold tracking-[0.14em] text-white">
-                FRONTIER SYSTEMS
-              </span>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+              <Link href="/" className="flex items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/favicon.ico"
+                  alt="Frontier Systems"
+                  className="h-8 w-8 rounded-sm"
+                />
+                <span className="text-sm font-extrabold tracking-[0.14em] text-white">
+                  FRONTIER SYSTEMS
+                </span>
+              </Link>
+              <span className="hidden sm:inline text-white/20">·</span>
+              <p className="text-xs text-white/45">
+                22 Gladstone Street, Walsall, WS2 8BL, UK
+              </p>
+            </div>
 
             <div className="flex flex-wrap items-center justify-center gap-5 text-xs text-white/55">
               <Link href="/" className="hover:text-white">

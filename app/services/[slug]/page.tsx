@@ -72,9 +72,9 @@ export default async function ServiceDetailPage({
   const relatedServices = getRelatedServices(service.slug, 3);
 
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
-      {/* ==================== STICKY HEADER ==================== */}
-      <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur">
+    <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-[74px]">
+      {/* ==================== FIXED HEADER ==================== */}
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <Link href="/" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -99,10 +99,10 @@ export default async function ServiceDetailPage({
             </Link>
 
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] px-4 py-2 text-xs font-bold text-white transition-all hover:bg-[#D97706]"
             >
-              Start a Project
+              Start a Conversation
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -173,10 +173,10 @@ export default async function ServiceDetailPage({
               {/* CTAs */}
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#D97706] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#D97706]/20 transition-all hover:bg-[#B45309]"
                 >
-                  Discuss Your Project
+                  Start a Conversation
                   <ArrowRight className="h-4 w-4" />
                 </Link>
 
@@ -493,10 +493,10 @@ export default async function ServiceDetailPage({
 
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-[#D97706] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#D97706]/20 transition-all hover:bg-[#B45309]"
             >
-              Start a Project
+              Start a Conversation
               <ArrowRight className="h-4 w-4" />
             </Link>
 
@@ -514,17 +514,23 @@ export default async function ServiceDetailPage({
       <footer className="border-t border-[#E2E8F0] bg-[#0B1120] text-white">
         <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <Link href="/" className="flex items-center gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/favicon.ico"
-                alt="Frontier Systems"
-                className="h-8 w-8 rounded-sm"
-              />
-              <span className="text-sm font-extrabold tracking-[0.14em] text-white">
-                FRONTIER SYSTEMS
-              </span>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+              <Link href="/" className="flex items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/favicon.ico"
+                  alt="Frontier Systems"
+                  className="h-8 w-8 rounded-sm"
+                />
+                <span className="text-sm font-extrabold tracking-[0.14em] text-white">
+                  FRONTIER SYSTEMS
+                </span>
+              </Link>
+              <span className="hidden sm:inline text-white/20">·</span>
+              <p className="text-xs text-white/45">
+                22 Gladstone Street, Walsall, WS2 8BL, UK
+              </p>
+            </div>
 
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/50">
               <Link href="/" className="hover:text-white">
@@ -542,7 +548,7 @@ export default async function ServiceDetailPage({
               <Link href="/cookies" className="hover:text-white">
                 Cookies
               </Link>
-              <Link href="/#contact" className="hover:text-white">
+              <Link href="/contact" className="hover:text-white">
                 Contact
               </Link>
               <a href="mailto:hello@frontiersystems.co" className="hover:text-white">
