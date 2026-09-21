@@ -42,6 +42,13 @@ export default function ServicesPage() {
             </Link>
 
             <Link
+              href="/work"
+              className="text-sm font-semibold text-[#334155] transition-colors hover:text-[#B45309]"
+            >
+              Our Work
+            </Link>
+
+            <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] px-4 py-2 text-xs font-bold text-white transition-all hover:bg-[#D97706]"
             >
@@ -338,6 +345,13 @@ export default function ServicesPage() {
                 </Link>
 
                 <Link
+                  href="/work"
+                  className="block text-sm text-white/45 transition-colors hover:text-[#F59E0B]"
+                >
+                  Our Work
+                </Link>
+
+                <Link
                   href="/contact"
                   className="block text-sm text-white/45 transition-colors hover:text-[#F59E0B]"
                 >
@@ -354,10 +368,24 @@ export default function ServicesPage() {
 
               <div className="mt-5 space-y-3">
                 <a
-                  href="mailto:hello@frontiersystems.co"
+                  href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project."
                   className="block text-sm text-white/45 transition-colors hover:text-[#F59E0B]"
                 >
                   hello@frontiersystems.co
+                </a>
+
+                <a
+                  href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-white/45 hover:text-[#22C55E] transition-colors group"
+                >
+                  <span className="block text-[11px] font-semibold text-white/35 uppercase tracking-wider group-hover:text-[#22C55E]">
+                    WhatsApp
+                  </span>
+                  <span className="block mt-0.5 text-white/70 font-medium whitespace-nowrap group-hover:text-white">
+                    +44 7401 826937
+                  </span>
                 </a>
 
                 <Link

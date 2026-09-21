@@ -17,6 +17,9 @@ import {
   Send,
   Copy,
   ChevronDown,
+  MessageCircle,
+  ExternalLink,
+  Loader2,
 } from "lucide-react";
 
 const serviceOptions = [
@@ -80,7 +83,10 @@ export function ContactForm() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const symbol = currency === "GBP" ? "£" : "$";
@@ -102,6 +108,12 @@ export function ContactForm() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCopyWhatsApp = () => {
+    navigator.clipboard.writeText("+44 7401 826937");
+    setCopiedPhone(true);
+    setTimeout(() => setCopiedPhone(false), 2000);
+  };
+
   const handleTierSelect = (tierId: string) => {
     setSelectedTierId(tierId);
     if (tierId !== "custom") {
@@ -109,14 +121,41 @@ export function ContactForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.consent) {
       alert("Please fill in the required fields and accept the consent checkbox.");
       return;
     }
-    // In production, this can send to a backend route or webhook
-    setSubmitted(true);
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          budget: getBudgetText(),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit enquiry. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error("Submission failed:", err);
+      setSubmitError(
+        err.message ||
+          "Failed to submit. Please try again or reach out directly at hello@frontiersystems.co or WhatsApp (+44 7401 826937)."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const faqs = [
@@ -165,12 +204,22 @@ export function ContactForm() {
                 <p className="text-xs font-bold uppercase tracking-wider text-[#64748B]">
                   Direct Email
                 </p>
-                <div className="mt-1 flex items-center gap-2">
+                <div className="mt-1 flex flex-wrap items-center gap-2">
                   <a
-                    href="mailto:hello@frontiersystems.co"
+                    href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20with%20you."
                     className="font-semibold text-[#0F172A] hover:text-[#B45309] transition-colors"
                   >
                     hello@frontiersystems.co
+                  </a>
+                  <a
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@frontiersystems.co&su=Project%20Enquiry%20-%20Frontier%20Systems"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Compose in Gmail"
+                    className="inline-flex items-center gap-1 rounded bg-[#FEF3C7] px-2 py-0.5 text-[10px] font-bold text-[#B45309] hover:bg-[#FDE68A] transition-colors"
+                  >
+                    Gmail
+                    <ExternalLink className="h-2.5 w-2.5" />
                   </a>
                   <button
                     type="button"
@@ -179,6 +228,49 @@ export function ContactForm() {
                     className="rounded p-1 text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A] transition-colors"
                   >
                     {copied ? (
+                      <span className="text-[10px] font-bold text-emerald-600">Copied!</span>
+                    ) : (
+                      <Copy className="h-3.5 w-3.5" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* WhatsApp */}
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0FDF4] border border-[#BBF7D0] text-[#16A34A]">
+                <MessageCircle className="h-5 w-5" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                  Direct WhatsApp
+                </p>
+                <div className="mt-1 flex flex-wrap items-center gap-2">
+                  <a
+                    href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-[#0F172A] hover:text-[#16A34A] transition-colors"
+                  >
+                    +44 7401 826937
+                  </a>
+                  <a
+                    href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 rounded bg-[#DCFCE7] px-2 py-0.5 text-[10px] font-bold text-[#15803D] hover:bg-[#BBF7D0] transition-colors"
+                  >
+                    Chat on WhatsApp
+                    <ExternalLink className="h-2.5 w-2.5" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyWhatsApp}
+                    title="Copy WhatsApp number"
+                    className="rounded p-1 text-[#64748B] hover:bg-[#F1F5F9] hover:text-[#0F172A] transition-colors"
+                  >
+                    {copiedPhone ? (
                       <span className="text-[10px] font-bold text-emerald-600">Copied!</span>
                     ) : (
                       <Copy className="h-3.5 w-3.5" />
@@ -328,7 +420,31 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href={`https://wa.me/447401826937?text=${encodeURIComponent(
+                  `Hello Frontier Systems, I just submitted an enquiry for ${formData.service} (Budget: ${getBudgetText()}). My name is ${formData.name}.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-[#16A34A] px-6 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[#15803D]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                <span>Chat on WhatsApp (+44 7401 826937)</span>
+              </a>
+
+              <a
+                href={`mailto:hello@frontiersystems.co?subject=${encodeURIComponent(
+                  `Project Enquiry: ${formData.name} - ${formData.service}`
+                )}&body=${encodeURIComponent(
+                  `Hi Frontier Systems team,\n\nI submitted this project enquiry on your website:\n- Name: ${formData.name}\n- Company: ${formData.company || "N/A"}\n- Service: ${formData.service}\n- Budget: ${getBudgetText()}\n- Timeline: ${formData.timeline}\n\nProject Brief:\n${formData.description}\n`
+                )}`}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] bg-white px-5 py-2.5 text-xs font-bold text-[#0F172A] transition-colors hover:border-[#D97706] hover:text-[#B45309]"
+              >
+                <Mail className="h-4 w-4" />
+                <span>Open in Email App</span>
+              </a>
+
               <button
                 type="button"
                 onClick={() => {
@@ -346,14 +462,14 @@ export function ContactForm() {
                     consent: false,
                   });
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-[#CBD5E1] bg-white px-5 py-2.5 text-xs font-bold text-[#0F172A] hover:border-[#D97706] hover:text-[#B45309]"
+                className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-5 py-2.5 text-xs font-semibold text-[#64748B] transition-colors hover:bg-[#F1F5F9] hover:text-[#0F172A]"
               >
                 Send another enquiry
               </button>
 
               <Link
                 href="/"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F172A] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#D97706]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F172A] px-6 py-2.5 text-xs font-bold text-white hover:bg-[#D97706] transition-colors"
               >
                 Return to Homepage
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -633,14 +749,31 @@ export function ContactForm() {
                 </label>
               </div>
 
+              {submitError && (
+                <div className="rounded-lg border border-red-200 bg-red-50 p-3.5 text-xs text-red-700">
+                  <p className="font-semibold">Submission Note:</p>
+                  <p className="mt-0.5">{submitError}</p>
+                </div>
+              )}
+
               {/* Submit Button */}
               <div>
                 <button
                   type="submit"
-                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#0F172A] px-8 text-sm font-bold text-white shadow-md transition-all hover:bg-[#D97706] sm:w-auto"
+                  disabled={isSubmitting}
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#0F172A] px-8 text-sm font-bold text-white shadow-md transition-all hover:bg-[#D97706] disabled:opacity-60 disabled:cursor-not-allowed sm:w-auto"
                 >
-                  <span>Submit Enquiry</span>
-                  <Send className="h-4 w-4" />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>Submitting Enquiry...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Submit Enquiry</span>
+                      <Send className="h-4 w-4" />
+                    </>
+                  )}
                 </button>
 
                 <p className="mt-3 text-[11px] text-[#64748B] leading-relaxed">

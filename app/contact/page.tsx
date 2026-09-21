@@ -43,8 +43,29 @@ export default function ContactPage() {
               Services
             </Link>
 
+            <Link
+              href="/work"
+              className="hidden sm:block text-sm font-semibold text-[#475569] transition-colors hover:text-[#B45309]"
+            >
+              Our Work
+            </Link>
+
             <a
-              href="mailto:hello@frontiersystems.co"
+              href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex flex-col items-center justify-center rounded-lg border border-[#BBF7D0] bg-[#F0FDF4] px-3.5 py-1 text-[#15803D] transition-all hover:bg-[#DCFCE7]"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#16A34A]/80 leading-none">
+                WhatsApp
+              </span>
+              <span className="text-xs font-bold whitespace-nowrap leading-tight mt-0.5">
+                +44 7401 826937
+              </span>
+            </a>
+
+            <a
+              href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project."
               className="inline-flex items-center gap-2 rounded-lg border border-[#CBD5E1] bg-white px-4 py-2 text-xs font-bold text-[#0F172A] transition-all hover:border-[#D97706] hover:text-[#B45309]"
             >
               hello@frontiersystems.co
@@ -110,6 +131,9 @@ export default function ContactPage() {
               </Link>
               <Link href="/services" className="hover:text-white">
                 Services
+              </Link>
+              <Link href="/work" className="hover:text-white">
+                Our Work
               </Link>
               <Link href="/privacy" className="hover:text-white">
                 Privacy Policy

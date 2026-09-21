@@ -99,6 +99,13 @@ export default async function ServiceDetailPage({
             </Link>
 
             <Link
+              href="/work"
+              className="hidden sm:block text-sm font-semibold text-[#475569] transition-colors hover:text-[#B45309]"
+            >
+              Our Work
+            </Link>
+
+            <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-[#0F172A] px-4 py-2 text-xs font-bold text-white transition-all hover:bg-[#D97706]"
             >
@@ -501,7 +508,21 @@ export default async function ServiceDetailPage({
             </Link>
 
             <a
-              href="mailto:hello@frontiersystems.co"
+              href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-col items-center justify-center rounded-lg border border-[#BBF7D0]/40 bg-[#F0FDF4]/10 px-6 py-2 text-sm font-semibold text-[#86EFAC] transition-colors hover:bg-[#F0FDF4]/20 hover:text-white"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#86EFAC]/80 leading-tight">
+                WhatsApp
+              </span>
+              <span className="text-xs font-bold whitespace-nowrap leading-tight mt-0.5">
+                +44 7401 826937
+              </span>
+            </a>
+
+            <a
+              href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project."
               className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white/40 hover:text-[#F59E0B]"
             >
               hello@frontiersystems.co
@@ -539,6 +560,9 @@ export default async function ServiceDetailPage({
               <Link href="/services" className="hover:text-white">
                 All Services
               </Link>
+              <Link href="/work" className="hover:text-white">
+                Our Work
+              </Link>
               <Link href="/privacy" className="hover:text-white">
                 Privacy
               </Link>
@@ -551,7 +575,18 @@ export default async function ServiceDetailPage({
               <Link href="/contact" className="hover:text-white">
                 Contact
               </Link>
-              <a href="mailto:hello@frontiersystems.co" className="hover:text-white">
+              <a
+                href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#22C55E]"
+              >
+                WhatsApp
+              </a>
+              <a
+                href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project."
+                className="hover:text-white"
+              >
                 hello@frontiersystems.co
               </a>
             </div>

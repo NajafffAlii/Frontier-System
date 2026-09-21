@@ -115,6 +115,8 @@ const architectureStages = [
     label: "Build",
     sub: "Software & Web",
     capability: "Software & Web",
+    href: "/services#digital-development",
+    serviceTitle: "Digital Development",
   },
   {
     id: "automate",
@@ -122,6 +124,8 @@ const architectureStages = [
     label: "Automate",
     sub: "AI & Workflows",
     capability: "AI & Workflows",
+    href: "/services#ai-automation",
+    serviceTitle: "AI & Automation",
   },
   {
     id: "integrate",
@@ -129,6 +133,8 @@ const architectureStages = [
     label: "Integrate",
     sub: "Systems & APIs",
     capability: "Systems & APIs",
+    href: "/services#business-systems",
+    serviceTitle: "Business Systems",
   },
   {
     id: "scale",
@@ -136,6 +142,8 @@ const architectureStages = [
     label: "Scale",
     sub: "Cloud & Infra",
     capability: "Cloud & Infra",
+    href: "/services#data-infrastructure",
+    serviceTitle: "Data & Infrastructure",
   },
 ];
 
@@ -353,6 +361,13 @@ export default function Home() {
             >
               Approach
             </a>
+
+            <Link
+              href="/work"
+              className="text-sm font-semibold text-[#334155] transition-colors hover:text-[#B45309]"
+            >
+              Our Work
+            </Link>
           </nav>
 
           {/* CTA */}
@@ -452,16 +467,28 @@ export default function Home() {
                 ["AI Automation", "#automation"],
                 ["Why Frontier", "#why"],
                 ["Approach", "#approach"],
-              ].map(([label, href]) => (
-                <a
-                  key={label}
-                  href={href}
-                  onClick={closeMenu}
-                  className="border-b border-[#E2E8F0] py-3.5 text-sm font-semibold text-[#334155]"
-                >
-                  {label}
-                </a>
-              ))}
+                ["Our Work", "/work"],
+              ].map(([label, href]) =>
+                href.startsWith("/") ? (
+                  <Link
+                    key={label}
+                    href={href}
+                    onClick={closeMenu}
+                    className="border-b border-[#E2E8F0] py-3.5 text-sm font-semibold text-[#334155]"
+                  >
+                    {label}
+                  </Link>
+                ) : (
+                  <a
+                    key={label}
+                    href={href}
+                    onClick={closeMenu}
+                    className="border-b border-[#E2E8F0] py-3.5 text-sm font-semibold text-[#334155]"
+                  >
+                    {label}
+                  </a>
+                )
+              )}
 
               <div className="py-4">
                 <Link
@@ -595,10 +622,14 @@ export default function Home() {
                     {/* Active capability subtitle under the logo hub */}
                     <div className="mt-2.5 h-4 flex items-center justify-center">
                       {activeStage ? (
-                        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#FDE68A] transition-all duration-200 animate-in fade-in">
+                        <Link
+                          href={activeStage.href}
+                          className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#FDE68A] hover:underline transition-all duration-200 animate-in fade-in"
+                        >
                           <span className="h-1.5 w-1.5 rounded-full bg-[#F59E0B]" />
-                          {activeStage.capability}
-                        </span>
+                          <span>{activeStage.capability}</span>
+                          <ArrowRight className="h-2.5 w-2.5 text-[#F59E0B]" />
+                        </Link>
                       ) : (
                         <span className="text-[10px] font-medium tracking-wide text-white/35">
                           Frontier Systems
@@ -642,15 +673,17 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* 4 Stage Nodes - Interactive on cursor hover & click */}
+                    {/* 4 Stage Nodes - Interactive hyperlinks to service sections */}
                     <div className="relative z-10 grid grid-cols-4 gap-3">
                       {architectureStages.map((node) => {
                         const NodeIcon = node.icon;
                         const isNodeActive = activeStageId === node.id;
 
                         return (
-                          <div
+                          <Link
                             key={node.id}
+                            href={node.href}
+                            title={`View ${node.serviceTitle} Services`}
                             className="group flex flex-col items-center cursor-pointer select-none"
                             onMouseEnter={() => setHoveredStage(node.id)}
                             onMouseLeave={() => setHoveredStage(null)}
@@ -670,9 +703,7 @@ export default function Home() {
                             />
 
                             {/* Node Logo Button */}
-                            <button
-                              type="button"
-                              aria-label={`${node.label} - ${node.sub}`}
+                            <div
                               className={`relative flex h-10 w-10 items-center justify-center rounded-lg border transition-all duration-300 ${
                                 isNodeActive
                                   ? "border-[#F59E0B] bg-[#78350F] text-[#FDE68A] shadow-[0_0_14px_rgba(245,158,11,0.35)] scale-110"
@@ -680,13 +711,13 @@ export default function Home() {
                               }`}
                             >
                               <NodeIcon className="h-4 w-4 transition-transform duration-200" />
-                            </button>
+                            </div>
 
                             <p
                               className={`mt-2.5 text-[11px] font-bold transition-colors duration-200 ${
                                 isNodeActive
                                   ? "text-[#F59E0B]"
-                                  : "text-white/70 group-hover:text-white"
+                                  : "text-white/70 group-hover:text-[#F59E0B]"
                               }`}
                             >
                               {node.label}
@@ -694,12 +725,12 @@ export default function Home() {
 
                             <p
                               className={`mt-0.5 text-[9px] transition-colors duration-200 ${
-                                isNodeActive ? "text-white/60" : "text-white/30"
+                                isNodeActive ? "text-white/60" : "text-white/30 group-hover:text-white/60"
                               }`}
                             >
                               {node.sub}
                             </p>
-                          </div>
+                          </Link>
                         );
                       })}
                     </div>
@@ -1070,8 +1101,21 @@ export default function Home() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
-                href="mailto:hello@frontiersystems.co"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] bg-white px-6 text-sm font-semibold text-[#0F172A] transition-colors hover:border-[#D97706] hover:text-[#B45309]"
+                href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-12 flex-col items-center justify-center rounded-lg border border-[#BBF7D0] bg-[#F0FDF4] px-5 py-1 text-[#15803D] transition-colors hover:bg-[#DCFCE7]"
+              >
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#16A34A]/80 leading-tight">
+                  WhatsApp
+                </span>
+                <span className="text-xs font-bold whitespace-nowrap leading-tight mt-0.5">
+                  +44 7401 826937
+                </span>
+              </a>
+              <a
+                href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20with%20you."
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-[#CBD5E1] bg-white px-5 text-sm font-semibold text-[#0F172A] transition-colors hover:border-[#D97706] hover:text-[#B45309]"
               >
                 hello@frontiersystems.co
               </a>
@@ -1139,6 +1183,13 @@ export default function Home() {
                 </a>
 
                 <Link
+                  href="/work"
+                  className="block text-sm text-white/55 hover:text-[#F59E0B]"
+                >
+                  Our Work
+                </Link>
+
+                <Link
                   href="/contact"
                   className="block text-sm text-white/55 hover:text-[#F59E0B]"
                 >
@@ -1156,10 +1207,24 @@ export default function Home() {
 
               <div className="mt-5 space-y-3">
                 <a
-                  href="mailto:hello@frontiersystems.co"
+                  href="mailto:hello@frontiersystems.co?subject=Project%20Enquiry%20-%20Frontier%20Systems&body=Hi%20Frontier%20Systems%20team%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project%20with%20you."
                   className="block text-sm text-white/55 hover:text-[#F59E0B]"
                 >
                   hello@frontiersystems.co
+                </a>
+
+                <a
+                  href="https://wa.me/447401826937?text=Hello%20Frontier%20Systems%2C%20I%20would%20like%20to%20enquire%20about%20a%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-white/55 hover:text-[#22C55E] transition-colors group"
+                >
+                  <span className="block text-xs font-semibold text-white/40 uppercase tracking-wider group-hover:text-[#22C55E]">
+                    WhatsApp
+                  </span>
+                  <span className="block mt-0.5 text-white/80 font-medium whitespace-nowrap group-hover:text-white">
+                    +44 7401 826937
+                  </span>
                 </a>
 
                 <Link
