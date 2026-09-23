@@ -1,5 +1,17 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import net from "net";
+import dns from "dns";
+
+// Fix Node.js Happy Eyeballs / IPv6 connection timeouts on Windows / localhost
+if (typeof net.setDefaultAutoSelectFamily === "function") {
+  net.setDefaultAutoSelectFamily(false);
+}
+if (typeof dns.setDefaultResultOrder === "function") {
+  dns.setDefaultResultOrder("ipv4first");
+}
+
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
@@ -109,11 +121,19 @@ Submitted At: ${new Date().toISOString()}
 
     if (resendApiKey) {
       const resend = new Resend(resendApiKey);
-      const fromEmail = process.env.RESEND_FROM_EMAIL || "Frontier Systems <onboarding@resend.dev>";
+      const fromEmail =
+        process.env.RESEND_FROM_EMAIL || "Frontier Systems <hello@frontiersystems.co>";
+
+      // Configurable recipient(s), defaults to hello@frontiersystems.co
+      const rawTo = process.env.RESEND_TO_EMAIL || "hello@frontiersystems.co";
+      const toAddresses = rawTo
+        .split(",")
+        .map((addr) => addr.trim())
+        .filter(Boolean);
 
       const sendResult = await resend.emails.send({
         from: fromEmail,
-        to: ["hello@frontiersystems.co"],
+        to: toAddresses.length > 0 ? toAddresses : ["hello@frontiersystems.co"],
         replyTo: email,
         subject,
         text: textContent,
