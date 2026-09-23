@@ -8,6 +8,8 @@ interface FaqItem {
   answer: string;
 }
 
+
+
 export function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
   // Track open state for each item by index (set of indices or single index)
   const [openIndex, setOpenIndex] = useState<number | null>(null);
