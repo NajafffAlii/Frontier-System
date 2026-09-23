@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export async function POST(req: Request) {
   try {
@@ -99,54 +99,53 @@ Submitted At: ${new Date().toISOString()}
         </div>
 
         <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid #E2E8F0; text-align: center; font-size: 12px; color: #94A3B8;">
-          Frontier Systems • 22 Gladstone Street, Walsall, WS2 8BL • <a href="mailto:hello@frontiersystems.co" style="color: #64748B; text-decoration: underline;">hello@frontiersystems.co</a>
+          Frontier Systems • 22 Gladstone Street, Walsall, WS2 8BL, United Kingdom • <a href="mailto:hello@frontiersystems.co" style="color: #64748B; text-decoration: underline;">hello@frontiersystems.co</a>
         </div>
       </div>
     `;
 
-    // Check if SMTP environment variables are defined
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    // Check if Resend API key is configured
+    const resendApiKey = process.env.RESEND_API_KEY;
 
-    if (smtpHost && smtpUser && smtpPass) {
-      const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
+    if (resendApiKey) {
+      const resend = new Resend(resendApiKey);
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "Frontier Systems <onboarding@resend.dev>";
 
-      await transporter.sendMail({
-        from: `"Frontier Systems Enquiry" <${smtpUser}>`,
-        to: "hello@frontiersystems.co",
+      const sendResult = await resend.emails.send({
+        from: fromEmail,
+        to: ["hello@frontiersystems.co"],
         replyTo: email,
         subject,
         text: textContent,
         html: htmlContent,
       });
 
-      console.log(`[CONTACT EMAIL SENT] Enquiry from ${name} <${email}> successfully dispatched via SMTP.`);
+      if (sendResult.error) {
+        console.error("[RESEND DISPATCH ERROR]:", sendResult.error);
+        return NextResponse.json(
+          { error: sendResult.error.message || "Failed to dispatch email via Resend." },
+          { status: 500 }
+        );
+      }
+
+      console.log(`[RESEND EMAIL SENT] Email dispatched successfully. ID: ${sendResult.data?.id}`);
 
       return NextResponse.json({
         success: true,
         message: "Enquiry submitted and email sent successfully.",
       });
     } else {
-      // SMTP credentials not yet provided in .env - log the complete payload clearly
+      // Resend API key not yet set in .env.local - record and output clearly
       console.log("=================================================");
-      console.log("[NEW PROJECT ENQUIRY RECEIVED]");
+      console.log("[NEW PROJECT ENQUIRY RECEIVED - RESEND_API_KEY NOT SET]");
+      console.log("Add RESEND_API_KEY to your .env.local file to enable live email delivery via Resend.");
       console.log(textContent);
       console.log("=================================================");
 
       return NextResponse.json({
         success: true,
         message: "Enquiry received and recorded successfully.",
-        smtpConfigured: false,
+        resendConfigured: false,
       });
     }
   } catch (error: any) {

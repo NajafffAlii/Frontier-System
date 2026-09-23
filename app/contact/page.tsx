@@ -6,7 +6,18 @@ import { ContactForm } from "@/components/contact-form";
 export const metadata: Metadata = {
   title: "Start a Conversation | Frontier Systems (UK)",
   description:
-    "Contact Frontier Systems. Tell us about your business, challenge, or the software and automation you want to build. We'll explore the right way forward.",
+    "Contact Frontier Systems in Walsall, West Midlands. Tell us about your UK business enquiry, custom software requirement, or AI workflow automation initiative.",
+  alternates: {
+    canonical: "https://frontiersystems.co/contact",
+  },
+  openGraph: {
+    title: "Start a Conversation | Frontier Systems (UK)",
+    description:
+      "Contact Frontier Systems in Walsall, West Midlands. Discuss custom software development, web engineering, or AI automation.",
+    url: "https://frontiersystems.co/contact",
+    locale: "en_GB",
+    type: "website",
+  },
 };
 
 export default function ContactPage() {

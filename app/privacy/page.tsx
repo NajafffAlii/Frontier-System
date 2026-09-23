@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Frontier Systems (UK)",
   description:
     "Learn how Frontier Systems collects, uses, and safeguards your personal data in compliance with the UK GDPR and the Data Protection Act 2018.",
+  alternates: {
+    canonical: "https://frontiersystems.co/privacy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

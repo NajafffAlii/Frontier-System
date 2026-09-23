@@ -9,9 +9,20 @@ import { ServiceIcon } from "@/components/service-icon";
 import { serviceCategories } from "@/lib/data/services";
 
 export const metadata: Metadata = {
-  title: "Services | Frontier Systems",
+  title: "Bespoke Software & AI Automation Services UK | Frontier Systems",
   description:
-    "Technology services for businesses — web development, AI automation, custom software, SaaS, business systems, cloud solutions, and more.",
+    "Explore Frontier Systems' 18 specialised technology services across Build, Automate, Integrate, and Scale. High-performance bespoke software engineering, AI automation, and cloud systems for UK businesses.",
+  alternates: {
+    canonical: "https://frontiersystems.co/services",
+  },
+  openGraph: {
+    title: "Bespoke Software & AI Automation Services UK | Frontier Systems",
+    description:
+      "18 specialised technology services across Build, Automate, Integrate, and Scale for UK businesses and enterprises.",
+    url: "https://frontiersystems.co/services",
+    locale: "en_GB",
+    type: "website",
+  },
 };
 
 export default function ServicesPage() {

@@ -15,9 +15,20 @@ import {
 import { caseStudiesData } from "@/lib/data/case-studies";
 
 export const metadata: Metadata = {
-  title: "Our Work & Case Studies | Frontier Systems",
+  title: "Our Work & Case Studies | Frontier Systems UK",
   description:
-    "Explore recent work built by Frontier Systems, including the B2B Pakistan export portal for Dewan Traders (dewantrade.com — Sargodha Kinnow mandarins, fresh produce, Basmati rice), logistics platforms, and automation systems.",
+    "Explore enterprise web platforms, custom portals, and automated systems engineered by Frontier Systems UK, including the global B2B trade platform for Dewan Traders.",
+  alternates: {
+    canonical: "https://frontiersystems.co/work",
+  },
+  openGraph: {
+    title: "Our Work & Case Studies | Frontier Systems UK",
+    description:
+      "Enterprise web platforms, custom portals, and automated systems engineered by Frontier Systems UK.",
+    url: "https://frontiersystems.co/work",
+    locale: "en_GB",
+    type: "website",
+  },
 };
 
 export default function WorkPage() {

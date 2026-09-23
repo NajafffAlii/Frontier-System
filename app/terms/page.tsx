@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: "Terms of Service | Frontier Systems (UK)",
   description:
     "Review the Terms of Service governing software development, AI automation, and technology services provided by Frontier Systems under the laws of England and Wales.",
+  alternates: {
+    canonical: "https://frontiersystems.co/terms",
+  },
 };
 
 export default function TermsOfServicePage() {

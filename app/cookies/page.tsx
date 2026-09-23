@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Cookie Policy | Frontier Systems (UK)",
   description:
     "Learn how Frontier Systems uses strictly necessary and performance cookies in compliance with UK PECR and UK GDPR.",
+  alternates: {
+    canonical: "https://frontiersystems.co/cookies",
+  },
 };
 
 export default function CookiePolicyPage() {
