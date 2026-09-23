@@ -40,19 +40,39 @@ export async function generateMetadata({
 
   if (!service) {
     return {
-      title: "Service Not Found | Frontier Systems",
+      title: "Service Not Found",
       description: "The requested service could not be found.",
     };
   }
 
+  const canonicalUrl = `https://frontiersystems.co/services/${service.slug}`;
+
   return {
-    title: `${service.title} | Frontier Systems`,
-    description: service.shortDescription,
+    title: `${service.title} Services UK`,
+    description: `${service.shortDescription} Engineered by Frontier Systems for UK businesses and enterprises in Walsall, West Midlands, and worldwide.`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
-      title: `${service.title} — Built by Frontier Systems`,
+      title: `${service.title} Services UK | Frontier Systems`,
       description: service.tagline,
       type: "website",
-      url: `https://frontiersystems.co/services/${service.slug}`,
+      url: canonicalUrl,
+      locale: "en_GB",
+      siteName: "Frontier Systems",
+      images: [
+        {
+          url: "/favicon.ico",
+          width: 1200,
+          height: 630,
+          alt: `${service.title} - Frontier Systems UK`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} Services UK | Frontier Systems`,
+      description: service.shortDescription,
     },
   };
 }
@@ -71,8 +91,37 @@ export default async function ServiceDetailPage({
 
   const relatedServices = getRelatedServices(service.slug, 3);
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://frontiersystems.co",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: "https://frontiersystems.co/services",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `https://frontiersystems.co/services/${service.slug}`,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-[74px]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* ==================== FIXED HEADER ==================== */}
       <header className="fixed top-0 inset-x-0 z-50 border-b border-[#E2E8F0] bg-[#F8FAFC]/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
