@@ -520,7 +520,7 @@ export default function Home() {
               </p>
 
               <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-[#0F172A] sm:text-5xl lg:text-[60px]">
-                We build what business needs.
+                We build what businesses need.
               </h1>
 
               <p className="mt-6 max-w-2xl text-base leading-7 text-[#475569] sm:text-lg sm:leading-8">

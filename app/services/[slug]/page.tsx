@@ -50,8 +50,27 @@ export async function generateMetadata({
   return {
     title: `${service.title} Services UK`,
     description: `${service.shortDescription} Engineered by Frontier Systems for UK businesses and enterprises in Walsall, West Midlands, and worldwide.`,
+    keywords: [
+      `${service.title} UK`,
+      `${service.title} services UK`,
+      `${service.title} agency UK`,
+      `${service.title} West Midlands`,
+      `${service.title} Birmingham`,
+      "Frontier Systems UK",
+      "bespoke software engineering UK",
+    ],
     alternates: {
       canonical: canonicalUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
     openGraph: {
       title: `${service.title} Services UK | Frontier Systems`,
@@ -62,10 +81,11 @@ export async function generateMetadata({
       siteName: "Frontier Systems",
       images: [
         {
-          url: "/favicon.ico",
+          url: "/images/og-card.jpg",
           width: 1200,
           height: 630,
           alt: `${service.title} - Frontier Systems UK`,
+          type: "image/jpeg",
         },
       ],
     },
@@ -73,6 +93,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${service.title} Services UK | Frontier Systems`,
       description: service.shortDescription,
+      images: ["/images/og-card.jpg"],
     },
   };
 }

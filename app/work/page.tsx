@@ -18,8 +18,21 @@ export const metadata: Metadata = {
   title: "Our Work & Case Studies | Frontier Systems UK",
   description:
     "Explore enterprise web platforms, custom portals, and automated systems engineered by Frontier Systems UK, including the global B2B trade platform for Dewan Traders.",
+  keywords: [
+    "UK software agency case studies",
+    "bespoke software examples UK",
+    "web development portfolio UK",
+    "AI automation case study UK",
+    "Frontier Systems portfolio",
+    "UK tech agency work",
+  ],
   alternates: {
     canonical: "https://frontiersystems.co/work",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   openGraph: {
     title: "Our Work & Case Studies | Frontier Systems UK",
@@ -28,6 +41,21 @@ export const metadata: Metadata = {
     url: "https://frontiersystems.co/work",
     locale: "en_GB",
     type: "website",
+    images: [
+      {
+        url: "/images/og-card.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Frontier Systems UK — Our Work & Case Studies",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Work & Case Studies | Frontier Systems UK",
+    description: "Enterprise web platforms, custom portals, and automated systems engineered by Frontier Systems UK.",
+    images: ["/images/og-card.jpg"],
   },
 };
 
