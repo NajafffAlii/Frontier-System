@@ -12,8 +12,24 @@ export const metadata: Metadata = {
   title: "Bespoke Software & AI Automation Services UK | Frontier Systems",
   description:
     "Explore Frontier Systems' 18 specialised technology services across Build, Automate, Integrate, and Scale. High-performance bespoke software engineering, AI automation, and cloud systems for UK businesses.",
+  keywords: [
+    "bespoke software services UK",
+    "AI automation services UK",
+    "web development services UK",
+    "custom software agency UK",
+    "SaaS development UK",
+    "cloud infrastructure UK",
+    "Frontier Systems services",
+    "UK tech services",
+    "West Midlands software agency",
+  ],
   alternates: {
     canonical: "https://frontiersystems.co/services",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   openGraph: {
     title: "Bespoke Software & AI Automation Services UK | Frontier Systems",
@@ -22,8 +38,24 @@ export const metadata: Metadata = {
     url: "https://frontiersystems.co/services",
     locale: "en_GB",
     type: "website",
+    images: [
+      {
+        url: "/images/og-card.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Frontier Systems UK — Bespoke Software & AI Automation Services",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bespoke Software & AI Automation Services UK | Frontier Systems",
+    description: "18 specialised technology services for UK businesses.",
+    images: ["/images/og-card.jpg"],
   },
 };
+
 
 export default function ServicesPage() {
   return (
